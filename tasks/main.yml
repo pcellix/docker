@@ -1,0 +1,41 @@
+---
+# tasks file for docker
+#
+- name: Get the docker latest script
+  get_url:
+    url: "{{ docker_url }}"
+    dest: "{{ docker_dest }}"
+- name: Run docker script
+  command: sh "{{ docker_dest }}"
+  args:
+    creates: "{{ docker_binary_loc }}" 
+  notify:
+    - enable and start docker
+- name: activate docker
+  service:
+    name: "{{ docker_service }}"
+    state: started
+    enabled: yes
+- name: Install pip
+  get_url:
+    url: "{{ pip_url }}"
+    dest: "{{ pip_dest }}"
+- name: Install pip script
+  command: >
+    python "{{ pip_dest }}"
+  args:
+    creates: "{{ pip_binary_loc }}"
+- name: Install docker-compose
+  pip:
+    name: "{{ pip_docker_compose }}"
+    state: present
+- name: Install docker-compose
+  pip:
+    name: "{{ pip_docker }}"
+    state: present
+
+- name: Add user to group
+  user:
+    name: "{{ user_docker }}"
+    groups: "{{ group_docker }}"
+    append: yes

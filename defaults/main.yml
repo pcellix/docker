@@ -1,0 +1,13 @@
+---
+# defaults file for docker
+docker_url: https://get.docker.com
+docker_dest: ./docker_install.sh
+docker_binary_loc: /usr/bin/docker
+docker_service: docker
+pip_url: https://bootstrap.pypa.io/get-pip.py
+pip_dest: ./get-pip.py
+pip_binary_loc: /usr/bin/pip
+pip_docker_compose: docker-compose
+pip_docker: docker
+user_docker: vagrant
+group_docker: docker
